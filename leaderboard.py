@@ -1,11 +1,13 @@
 import csv
+from os import path
 
 class Leaderboard:
     def __init__(self):
         self.users = []
         self.index = -1
-        file_object = open("hangman.csv", "w")
-        file_object.close()
+        if not path.exists("hangman.csv"):
+            file_object = open("hangman.csv", "w")
+            file_object.close()
 
     def _get_users(self):
         with open("hangman.csv", "r") as file:
