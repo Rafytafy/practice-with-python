@@ -1,33 +1,33 @@
 class Hangman:
     def __init__(self, word):
         self.word = word
-        self.word_array = [char for char in word.lower()]
-        self.guess = ['_' for i in range(len(self.word_array))]
-        self.character = ""
+        self._word_array = [char for char in word.lower()]
+        self.guess = ['_' for i in range(len(self._word_array))]
+        self._character = ""
         self.win = False
         self.guess_counter = 6
 
     def _get_guess(self):
-        self.character = input("Enter a character: ").lower()
+        self._character = input("Enter a _character: ").lower()
 
     def _check_if_valid_character(self):
-        while not self.character.isalpha() or len(self.character) > 1:
+        while not self._character.isalpha() or len(self._character) > 1:
             print("Invalid Guess")
             self._get_guess()
 
     def _is_character_in_word(self):
-        return self.character in self.word_array
+        return self._character in self._word_array
         
 
     def _add_character_to_guess(self):
-        index = self.word_array.index(self.character)
-        self.guess[index] = self.character
+        index = self._word_array.index(self._character)
+        self.guess[index] = self._character
 
     def _replace_word_with_under(self):
-        print(len(self.word_array))
-        for i in range(len(self.word_array)):
-            if self.word_array[i] == self.character:
-                self.word_array[i] = '_'
+        print(len(self._word_array))
+        for i in range(len(self._word_array)):
+            if self._word_array[i] == self._character:
+                self._word_array[i] = '_'
                 break   
 
     def _check_to_see_if_win(self):
@@ -77,7 +77,7 @@ class Hangman:
                 self._add_character_to_guess()
                 self._replace_word_with_under()
             else:
-                print(f"{self.character} is not in the word")
+                print(f"{self._character} is not in the word")
                 self.guess_counter -= 1
                 
 
