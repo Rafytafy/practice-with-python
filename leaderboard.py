@@ -24,11 +24,7 @@ class Leaderboard:
             for row in self.users:
                 writer.writerow(row)
 
-    def update_leaderboard(self, name, win):
-        self._get_users()
-        self._find_user(name)
-
-        print(self.index)
+    def _update_user_score(self, name, win):
         if win and self.index != -1:
             self.users[self.index][1] = int(self.users[self.index][1]) + 1
         elif not win and self.index != -1:
@@ -38,7 +34,11 @@ class Leaderboard:
         elif not win and self.index == -1:
             self.users.append([name, 0, 1])
 
+    def update_leaderboard(self, name, win):
+        self._get_users()
+        self._find_user(name)
+        self._update_user_score(name, win)
         self._write_to_file()
 
 l1 = Leaderboard()
-l1.update_leaderboard("Rj", False)
+l1.update_leaderboard("Junior", True)
