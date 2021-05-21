@@ -7,33 +7,30 @@ class Hangman:
         self.win = False
         self.guess_counter = 6
 
-    def get_guess(self):
+    def _get_guess(self):
         self.character = input("Enter a character: ").lower()
 
-    def check_if_valid_character(self):
+    def _check_if_valid_character(self):
         while not self.character.isalpha() or len(self.character) > 1:
             print("Invalid Guess")
-            self.get_guess()
+            self._get_guess()
 
-    def check_if_character_in_word(self):
-        if self.character in self.word_array:
-            self.add_character_to_guess(self.word_array.index(self.character))
-            self.replace_word_with_under()
-        else:
-            print(f"{self.character} is not in the word")
-            self.guess_counter -= 1
+    def _is_character_in_word(self):
+        return self.character in self.word_array
+        
 
-    def add_character_to_guess(self, index):
+    def _add_character_to_guess(self):
+        index = self.word_array.index(self.character)
         self.guess[index] = self.character
 
-    def replace_word_with_under(self):
+    def _replace_word_with_under(self):
         print(len(self.word_array))
         for i in range(len(self.word_array)):
             if self.word_array[i] == self.character:
                 self.word_array[i] = '_'
                 break   
 
-    def check_to_see_if_win(self):
+    def _check_to_see_if_win(self):
         no_underscore_found = True
         for char in self.guess:
             if char == "_":
@@ -42,7 +39,7 @@ class Hangman:
         if no_underscore_found:
             self.win = True
 
-    def draw_hang_man(self):
+    def _draw_hang_man(self):
         stage1= "-------\n|     |\n|\n|\n|\n|\n=========="
         stage2= "-------\n|     |\n|     O\n|\n|\n|\n=========="
         stage3= "-------\n|     |\n|     O\n|     |\n|\n|\n=========="
@@ -66,22 +63,27 @@ class Hangman:
         elif self.guess_counter == 0:
             print(stage7)
         
-        pass
 
     def play(self):
         while not self.win:
             if self.guess_counter == 0:
                 break
 
-            self.get_guess()
+            self._get_guess()
 
-            self.check_if_valid_character()
+            self._check_if_valid_character()
 
-            self.check_if_character_in_word()
+            if self._is_character_in_word():
+                self._add_character_to_guess()
+                self._replace_word_with_under()
+            else:
+                print(f"{self.character} is not in the word")
+                self.guess_counter -= 1
+                
 
-            self.check_to_see_if_win()
+            self._check_to_see_if_win()
            
-            self.draw_hang_man()
+            self._draw_hang_man()
 
             print(self.guess)
 
@@ -97,4 +99,3 @@ class Hangman:
 hangman = Hangman("Oakland")
 
 hangman.play()
-
