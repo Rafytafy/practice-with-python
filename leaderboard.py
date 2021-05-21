@@ -4,6 +4,8 @@ class Leaderboard:
     def __init__(self):
         self.users = []
         self.index = -1
+        file_object = open("hangman.csv", "w")
+        file_object.close()
 
     def _get_users(self):
         with open("hangman.csv", "r") as file:
@@ -39,6 +41,3 @@ class Leaderboard:
         self._find_user(name)
         self._update_user_score(name, win)
         self._write_to_file()
-
-l1 = Leaderboard()
-l1.update_leaderboard("Junior", True)

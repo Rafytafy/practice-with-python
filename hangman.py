@@ -8,7 +8,7 @@ class Hangman:
         self.guess_counter = 6
 
     def _get_guess(self):
-        self._character = input("Enter a _character: ").lower()
+        self._character = input("Enter a character: ").lower()
 
     def _check_if_valid_character(self):
         while not self._character.isalpha() or len(self._character) > 1:
@@ -92,10 +92,3 @@ class Hangman:
         else:
             print("You lost")
         print(f"The word was {self.word}")
-        
-    
-
-
-hangman = Hangman("Oakland")
-
-hangman.play()
